@@ -256,6 +256,7 @@ function openDayModal(dateKey, events) {
   modalTitle.textContent = `${events.length} actividad${events.length === 1 ? "" : "es"} programada${events.length === 1 ? "" : "s"}`;
   modalActivities.innerHTML = events.map(renderActivity).join("");
   modalOverlay.hidden = false;
+  document.body.classList.add("modal-open");
   closeModal.focus();
 }
 
@@ -286,6 +287,7 @@ function renderActivity(event) {
 
 function closeDayModal() {
   modalOverlay.hidden = true;
+  document.body.classList.remove("modal-open");
 }
 
 function moveMonth(direction) {

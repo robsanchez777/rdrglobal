@@ -379,9 +379,11 @@ input {
 
 .modal {
   position: relative;
-  width: min(720px, 100%);
-  max-height: min(760px, calc(100vh - 36px));
+  width: min(720px, calc(100vw - 36px));
+  max-height: min(760px, calc(100dvh - 36px));
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: #f8f1ea;
   border: 1px solid #c8b09a;
   border-radius: 18px;
@@ -439,6 +441,8 @@ input {
 .activity-topline h3 {
   margin: 0;
   font-size: 1.08rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .time-badge {
@@ -454,6 +458,7 @@ input {
 .activity-meta {
   margin: 8px 0 0;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .contacts {
@@ -482,6 +487,8 @@ input {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .contact-phone {
@@ -529,6 +536,40 @@ input {
 }
 
 @media (max-width: 760px) {
+  .modal-overlay {
+    place-items: start center;
+    padding: 12px;
+  }
+
+  .modal {
+    width: min(720px, calc(100vw - 24px));
+    max-height: calc(100dvh - 24px);
+    padding: 18px 16px 16px;
+    border-radius: 16px;
+  }
+
+  .modal-header {
+    padding-right: 44px;
+    margin-bottom: 14px;
+  }
+
+  .modal-header p {
+    font-size: .98rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.3rem;
+    line-height: 1.12;
+  }
+
+  .modal-activities {
+    gap: 10px;
+  }
+
+  .activity-card {
+    padding: 14px;
+  }
+
   .toolbar {
     grid-template-columns: 1fr;
   }
@@ -553,5 +594,31 @@ input {
 
   .activity-topline {
     display: grid;
+    gap: 10px;
   }
+
+  .time-badge {
+    width: fit-content;
+    max-width: 100%;
+    padding: 8px 12px;
+    font-size: .92rem;
+    line-height: 1.2;
+  }
+
+  .contacts {
+    gap: 10px;
+  }
+
+  .contact-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .contact-phone {
+    min-width: 0;
+  }
+}
+
+body.modal-open {
+  overflow: hidden;
 }
