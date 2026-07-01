@@ -379,11 +379,11 @@ input {
 
 .modal {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: min(720px, calc(100vw - 36px));
   max-height: min(760px, calc(100dvh - 36px));
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  overflow: hidden;
   background: #f8f1ea;
   border: 1px solid #c8b09a;
   border-radius: 18px;
@@ -420,8 +420,14 @@ input {
 }
 
 .modal-activities {
+  flex: 1 1 auto;
   display: grid;
   gap: 12px;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .activity-card {
@@ -564,6 +570,7 @@ input {
 
   .modal-activities {
     gap: 10px;
+    padding-right: 0;
   }
 
   .activity-card {
