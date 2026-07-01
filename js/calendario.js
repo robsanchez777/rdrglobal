@@ -21,6 +21,7 @@ const modalOverlay = document.getElementById("modalOverlay");
 const closeModal = document.getElementById("closeModal");
 const modalDate = document.getElementById("modalDate");
 const modalTitle = document.getElementById("modalTitle");
+const modalScrollHint = document.getElementById("modalScrollHint");
 const modalActivities = document.getElementById("modalActivities");
 
 const monthFormatter = new Intl.DateTimeFormat("es-AR", {
@@ -256,6 +257,8 @@ function openDayModal(dateKey, events) {
   modalDate.textContent = capitalize(dayFormatter.format(date));
   modalTitle.textContent = `${events.length} actividad${events.length === 1 ? "" : "es"} programada${events.length === 1 ? "" : "s"}`;
   modalActivities.innerHTML = events.map(renderActivity).join("");
+  modalScrollHint.hidden = events.length <= 2;
+  modalOverlay.classList.toggle("has-scroll-hint", events.length > 2);
   modalOverlay.hidden = false;
   lockBodyScroll();
   closeModal.focus();
@@ -288,6 +291,8 @@ function renderActivity(event) {
 
 function closeDayModal() {
   modalOverlay.hidden = true;
+  modalOverlay.classList.remove("has-scroll-hint");
+  modalScrollHint.hidden = true;
   unlockBodyScroll();
 }
 

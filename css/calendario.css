@@ -419,6 +419,10 @@ input {
   font-size: 1.55rem;
 }
 
+.modal-scroll-hint {
+  display: none;
+}
+
 .modal-activities {
   flex: 1 1 auto;
   display: grid;
@@ -526,6 +530,17 @@ input {
   display: block;
 }
 
+@keyframes nudge-down {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: .7;
+  }
+  50% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+}
+
 @keyframes menu-in {
   from {
     opacity: 0;
@@ -567,6 +582,32 @@ input {
   .modal-header h2 {
     font-size: 1.3rem;
     line-height: 1.12;
+  }
+
+  .modal-scroll-hint {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: -2px 0 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 248, 240, .9));
+    border: 1px solid rgba(200, 176, 154, .8);
+    color: var(--accent-deep);
+    font-size: .88rem;
+    font-weight: 700;
+  }
+
+  .modal-scroll-hint-text {
+    min-width: 0;
+  }
+
+  .modal-scroll-hint-arrow {
+    flex: 0 0 auto;
+    font-size: 1.25rem;
+    line-height: 1;
+    animation: nudge-down 1.2s ease-in-out infinite;
   }
 
   .modal-activities {
