@@ -1,0 +1,55 @@
+{
+  "id": "oracion",
+  "nombre": "Oración e intercesión",
+  "descripcion": "Encuentros de oración, intercesión y cobertura espiritual.",
+  "actividades": [
+    {
+      "id": "oracion-templo",
+      "nombre": "Oración en templo",
+      "fechas": [
+        {
+          "dia": "2026-07-08",
+          "horario": "19:30",
+          "lugar": "Cabildo y Juramento",
+          "nota": "Encuentro en Belgrano",
+          "contactos": [
+            {
+              "nombre": "Claudia Herrera",
+              "telefono": "+54 9 11 5555-1101"
+            }
+          ]
+        },
+        {
+          "dia": "2026-07-22",
+          "horario": "19:30",
+          "lugar": "Cabildo y Juramento",
+          "nota": "Encuentro en Belgrano",
+          "contactos": [
+            {
+              "nombre": "Claudia Herrera",
+              "telefono": "+54 9 11 5555-1101"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "intercesion-jovenes",
+      "nombre": "Intercesión por jóvenes",
+      "fechas": [
+        {
+          "dia": "2026-07-22",
+          "horario": "20:15",
+          "lugar": "Cabildo y Juramento",
+          "nota": "Después de oración general en Belgrano",
+          "contactos": [
+            {
+              "nombre": "Ezequiel Ríos",
+              "telefono": "+54 9 11 5555-1201"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

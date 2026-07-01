@@ -1,0 +1,14 @@
+{
+  "servicios": [
+    {
+      "id": "evangelismo",
+      "nombre": "Evangelismo",
+      "config": "config/servicios/evangelismo.json"
+    },
+    {
+      "id": "oracion",
+      "nombre": "Oración e intercesión",
+      "config": "config/servicios/oracion.json"
+    }
+  ]
+}

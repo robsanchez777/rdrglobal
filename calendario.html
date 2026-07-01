@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendario de Servicios - Rey de Reyes Global</title>
+  <link rel="stylesheet" href="css/calendario.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo"><img src="assets/logo-rey-de-reyes.webp" alt="Rey de Reyes Global"></div>
+    <h1>Calendario de Servicios</h1>
+    <p>Rey de Reyes Global</p>
+  </header>
+
+  <main class="container">
+    <section class="toolbar" aria-label="Filtros de calendario">
+      <div class="select-field">
+        <span>Servicio</span>
+        <div class="custom-select" id="servicePicker">
+          <button id="serviceTrigger" class="select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span id="serviceTriggerText">Seleccioná un servicio</span>
+            <span class="select-chevron" aria-hidden="true"><span class="select-chevron-icon"></span></span>
+          </button>
+          <div id="serviceMenu" class="select-menu" role="listbox" hidden></div>
+        </div>
+      </div>
+
+      <div class="month-controls" aria-label="Navegación por mes">
+        <button id="prevMonth" type="button" aria-label="Mes anterior">‹</button>
+        <strong id="monthLabel">Calendario</strong>
+        <button id="nextMonth" type="button" aria-label="Mes siguiente">›</button>
+      </div>
+    </section>
+
+    <section id="emptyState" class="empty-state">
+      <h2>Seleccioná un servicio para ver sus actividades</h2>
+    </section>
+
+    <section id="calendarArea" class="calendar-area" hidden>
+      <div id="serviceSummary" class="service-summary"></div>
+      <div class="calendar" aria-label="Calendario mensual">
+        <div class="weekdays">
+          <span>Dom</span>
+          <span>Lun</span>
+          <span>Mar</span>
+          <span>Mié</span>
+          <span>Jue</span>
+          <span>Vie</span>
+          <span>Sáb</span>
+        </div>
+        <div id="daysGrid" class="days-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalOverlay" class="modal-overlay" hidden>
+    <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button id="closeModal" class="close-modal" type="button" aria-label="Cerrar">×</button>
+      <div class="modal-header">
+        <p id="modalDate"></p>
+        <h2 id="modalTitle"></h2>
+      </div>
+      <div id="modalActivities" class="modal-activities"></div>
+    </article>
+  </div>
+
+  <script src="js/calendario.js"></script>
+</body>
+</html>

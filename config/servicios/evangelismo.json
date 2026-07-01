@@ -1,0 +1,101 @@
+{
+  "id": "evangelismo",
+  "nombre": "Evangelismo",
+  "descripcion": "Salidas de evangelismo en calles, plazas, trenes y subtes.",
+  "actividades": [
+    {
+      "id": "evangelismo-trenes",
+      "nombre": "Evangelismo de trenes",
+      "fechas": [
+        {
+          "dia": "2026-07-04",
+          "horario": "10:00",
+          "lugar": "Belgrano - Línea D",
+          "nota": "Punto de encuentro en estación Juramento",
+          "contactos": [
+            {
+              "nombre": "Marcos Fernández",
+              "telefono": "+54 9 11 5555-0101"
+            }
+          ]
+        },
+        {
+          "dia": "2026-07-18",
+          "horario": "09:30",
+          "lugar": "Belgrano - Línea D",
+          "nota": "Salida por grupos desde estación Juramento",
+          "contactos": [
+            {
+              "nombre": "Lucía Romero",
+              "telefono": "+54 9 11 5555-0102"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evangelismo-calles",
+      "nombre": "Evangelismo de calles",
+      "fechas": [
+        {
+          "dia": "2026-07-04",
+          "horario": "10:00",
+          "lugar": "Cabildo y Juramento",
+          "nota": "Equipo de Evangelismo de calles",
+          "contactos": [
+            {
+              "nombre": "Natalia Gómez",
+              "telefono": "+54 9 11 5555-0201"
+            },
+            {
+              "nombre": "Pablo Núñez",
+              "telefono": "+54 9 11 5555-0202"
+            }
+          ]
+        },
+        {
+          "dia": "2026-07-25",
+          "horario": "16:00",
+          "lugar": "Cabildo y Juramento",
+          "nota": "Equipo de Evangelismo de calles",
+          "contactos": [
+            {
+              "nombre": "Natalia Gómez",
+              "telefono": "+54 9 11 5555-0201"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evangelismo-subtes",
+      "nombre": "Evangelismo de subtes",
+      "fechas": [
+        {
+          "dia": "2026-07-04",
+          "horario": "12:30",
+          "lugar": "Línea D - Estación Juramento",
+          "nota": "Equipo de Evangelismo de subtes",
+          "contactos": [
+            {
+              "nombre": "Sofía Martínez",
+              "telefono": "+54 9 11 5555-0301"
+            }
+          ]
+        },
+        {
+          "dia": "2026-08-01",
+          "horario": "11:00",
+          "lugar": "Línea D - Estación Juramento",
+          "nota": "REquipo de Evangelismo de subtes",
+          "contactos": [
+            {
+              "nombre": "Sofía Martínez",
+              "telefono": "+54 9 11 5555-0301"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
