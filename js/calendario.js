@@ -2,7 +2,8 @@ const state = {
   manifest: null,
   selectedService: null,
   selectedServiceId: "",
-  currentDate: new Date()
+  currentDate: new Date(),
+  scrollY: 0
 };
 
 const servicePicker = document.getElementById("servicePicker");
@@ -256,7 +257,7 @@ function openDayModal(dateKey, events) {
   modalTitle.textContent = `${events.length} actividad${events.length === 1 ? "" : "es"} programada${events.length === 1 ? "" : "s"}`;
   modalActivities.innerHTML = events.map(renderActivity).join("");
   modalOverlay.hidden = false;
-  document.body.classList.add("modal-open");
+  lockBodyScroll();
   closeModal.focus();
 }
 
@@ -287,7 +288,27 @@ function renderActivity(event) {
 
 function closeDayModal() {
   modalOverlay.hidden = true;
+  unlockBodyScroll();
+}
+
+function lockBodyScroll() {
+  state.scrollY = window.scrollY || window.pageYOffset || 0;
+  document.body.classList.add("modal-open");
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${state.scrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+}
+
+function unlockBodyScroll() {
   document.body.classList.remove("modal-open");
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  window.scrollTo(0, state.scrollY);
 }
 
 function moveMonth(direction) {

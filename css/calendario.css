@@ -549,6 +549,7 @@ input {
 
   .modal {
     width: min(720px, calc(100vw - 24px));
+    height: calc(100dvh - 24px);
     max-height: calc(100dvh - 24px);
     padding: 18px 16px 16px;
     border-radius: 16px;
