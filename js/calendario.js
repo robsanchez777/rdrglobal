@@ -224,18 +224,11 @@ function scrollToCalendarOnMobile() {
   const scrollingElement = document.scrollingElement || document.documentElement;
   const targetTop = Math.max(
     0,
-    calendarArea.getBoundingClientRect().top + window.scrollY - monthControls.offsetHeight - 16
+    monthControls.getBoundingClientRect().top + window.scrollY - 16
   );
 
   window.setTimeout(() => {
     scrollingElement.scrollTop = targetTop;
-
-    window.setTimeout(() => {
-      calendarArea.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }, 120);
   }, 120);
 }
 
