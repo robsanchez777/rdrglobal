@@ -13,6 +13,7 @@ const serviceMenu = document.getElementById("serviceMenu");
 const emptyState = document.getElementById("emptyState");
 const calendarArea = document.getElementById("calendarArea");
 const serviceSummary = document.getElementById("serviceSummary");
+const monthControls = document.querySelector(".month-controls");
 const monthLabel = document.getElementById("monthLabel");
 const daysGrid = document.getElementById("daysGrid");
 const prevMonth = document.getElementById("prevMonth");
@@ -159,6 +160,20 @@ async function selectService(serviceId) {
   emptyState.hidden = true;
   calendarArea.hidden = false;
   renderCalendar();
+  scrollToCalendarOnMobile();
+}
+
+function scrollToCalendarOnMobile() {
+  if (!window.matchMedia("(max-width: 760px)").matches || !monthControls) {
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    monthControls.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
 }
 
 function renderCalendar() {
