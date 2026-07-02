@@ -179,21 +179,26 @@ async function selectService(serviceId) {
 }
 
 function scrollToCalendarOnMobile() {
-  if (!isMobileViewport() || !daysGrid || !monthControls) {
+  if (!isMobileViewport() || !calendarArea || !monthControls) {
     return;
   }
 
+  const scrollingElement = document.scrollingElement || document.documentElement;
   const targetTop = Math.max(
     0,
-    daysGrid.getBoundingClientRect().top + window.scrollY - monthControls.offsetHeight - 16
+    calendarArea.getBoundingClientRect().top + window.scrollY - monthControls.offsetHeight - 16
   );
 
   window.setTimeout(() => {
-    window.scrollTo({
-      top: targetTop,
-      behavior: "smooth"
-    });
-  }, 75);
+    scrollingElement.scrollTop = targetTop;
+
+    window.setTimeout(() => {
+      calendarArea.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }, 120);
+  }, 120);
 }
 
 function isMobileViewport() {
