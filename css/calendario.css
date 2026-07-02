@@ -664,20 +664,23 @@ input {
   .month-controls button::before {
     content: "";
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 10px;
-    height: 10px;
-    border-top: 3px solid currentColor;
-    border-left: 3px solid currentColor;
+    inset: 0;
+    width: 18px;
+    height: 18px;
+    margin: auto;
+    background: currentColor;
+    -webkit-mask: center / contain no-repeat;
+    mask: center / contain no-repeat;
   }
 
   #prevMonth::before {
-    transform: translate(-35%, -50%) rotate(-45deg);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M15%206L9%2012L15%2018%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%273.2%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M15%206L9%2012L15%2018%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%273.2%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27/%3E%3C/svg%3E");
   }
 
   #nextMonth::before {
-    transform: translate(-65%, -50%) rotate(135deg);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M9%206L15%2012L9%2018%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%273.2%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%2024%2024%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M9%206L15%2012L9%2018%27%20fill%3D%27none%27%20stroke%3D%27black%27%20stroke-width%3D%273.2%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27/%3E%3C/svg%3E");
   }
 
   .day {
