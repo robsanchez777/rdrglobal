@@ -115,16 +115,30 @@ function toggleServiceMenu() {
 }
 
 function openServiceMenu() {
+  if (isMobileViewport()) {
+    history.pushState({ ui: "service-menu" }, "", window.location.href);
+  }
+
   serviceMenu.hidden = false;
   servicePicker.classList.add("is-open");
   serviceTrigger.setAttribute("aria-expanded", "true");
   updateServiceOptions();
 }
 
-function closeServiceMenu() {
+function closeServiceMenu(options = {}) {
+  const { fromPopState = false } = options;
+
+  if (serviceMenu.hidden) {
+    return;
+  }
+
   serviceMenu.hidden = true;
   servicePicker.classList.remove("is-open");
   serviceTrigger.setAttribute("aria-expanded", "false");
+
+  if (!fromPopState && isMobileViewport() && history.state && history.state.ui === "service-menu") {
+    history.back();
+  }
 }
 
 function renderBlankState() {
@@ -165,19 +179,36 @@ async function selectService(serviceId) {
 }
 
 function scrollToCalendarOnMobile() {
-  if (!window.matchMedia("(max-width: 760px)").matches || !monthControls) {
+  if (!isMobileViewport() || !daysGrid || !monthControls) {
     return;
   }
 
-  const targetTop = Math.max(0, monthControls.getBoundingClientRect().top + window.scrollY - 12);
+  const targetTop = Math.max(
+    0,
+    daysGrid.getBoundingClientRect().top + window.scrollY - monthControls.offsetHeight - 16
+  );
 
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      window.scrollTo({
-        top: targetTop,
-        behavior: "smooth"
-      });
+  window.setTimeout(() => {
+    window.scrollTo({
+      top: targetTop,
+      behavior: "smooth"
     });
+  }, 75);
+}
+
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 760px)").matches;
+}
+
+window.addEventListener("popstate", () => {
+  if (!serviceMenu.hidden) {
+    closeServiceMenu({ fromPopState: true });
+  }
+});
+
+window.addEventListener("pageshow", () => {
+  if (history.state && history.state.ui === "service-menu" && serviceMenu.hidden) {
+    history.replaceState(null, "", window.location.href);
   });
 }
 
