@@ -663,6 +663,9 @@ input {
 
   .month-controls button::before {
     content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 10px;
     height: 10px;
     border-top: 3px solid currentColor;
@@ -670,11 +673,11 @@ input {
   }
 
   #prevMonth::before {
-    transform: translateX(2px) rotate(-45deg);
+    transform: translate(-35%, -50%) rotate(-45deg);
   }
 
   #nextMonth::before {
-    transform: translateX(-2px) rotate(135deg);
+    transform: translate(-65%, -50%) rotate(135deg);
   }
 
   .day {
