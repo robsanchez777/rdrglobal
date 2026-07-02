@@ -38,25 +38,41 @@ const dayFormatter = new Intl.DateTimeFormat("es-AR", {
   year: "numeric"
 });
 
-async function loadJson(path) {
-  const response = await fetch(path);
-  if (!response.ok) {
-    throw new Error(`No se pudo cargar ${path}`);
-  }
-  return response.json();
+function loadJson(path) {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+
+    request.open("GET", path, true);
+    request.overrideMimeType("application/json");
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 300) {
+        try {
+          resolve(JSON.parse(request.responseText));
+        } catch (error) {
+          reject(new Error(`No se pudo interpretar ${path}`));
+        }
+      } else {
+        reject(new Error(`No se pudo cargar ${path}`));
+      }
+    };
+    request.onerror = () => reject(new Error(`No se pudo cargar ${path}`));
+    request.send();
+  });
 }
 
-async function init() {
-  try {
-    state.manifest = await loadJson("config/servicios.json");
-    populateServices();
-    renderBlankState();
-  } catch (error) {
-    emptyState.innerHTML = `
-      <h2>No se pudo cargar la configuración</h2>
-      <p>${error.message}. Si abriste el HTML directo desde el archivo, usá un servidor local para permitir la lectura de JSON.</p>
-    `;
-  }
+function init() {
+  loadJson("config/servicios.json")
+    .then((manifest) => {
+      state.manifest = manifest;
+      populateServices();
+      renderBlankState();
+    })
+    .catch((error) => {
+      emptyState.innerHTML = `
+        <h2>No se pudo cargar la configuración</h2>
+        <p>${error.message}. Si abriste el HTML directo desde el archivo, usá un servidor local para permitir la lectura de JSON.</p>
+      `;
+    });
 }
 
 function populateServices() {
@@ -88,7 +104,7 @@ function chooseService(serviceId, serviceName) {
   state.selectedServiceId = serviceId;
   serviceTriggerText.textContent = serviceName;
   serviceTrigger.blur();
-  closeServiceMenu();
+  closeServiceMenu({ replaceHistory: true });
   updateServiceOptions();
 
   selectService(serviceId).catch((error) => {
@@ -117,8 +133,12 @@ function toggleServiceMenu() {
 
 function openServiceMenu() {
   if (isMobileViewport() && !state.serviceMenuHistoryOpen) {
-    history.pushState({ ui: "service-menu" }, "", window.location.href);
-    state.serviceMenuHistoryOpen = true;
+    try {
+      history.pushState({ ui: "service-menu" }, "", window.location.href);
+      state.serviceMenuHistoryOpen = true;
+    } catch (error) {
+      state.serviceMenuHistoryOpen = false;
+    }
   }
 
   serviceMenu.hidden = false;
@@ -129,6 +149,7 @@ function openServiceMenu() {
 
 function closeServiceMenu(options = {}) {
   const { fromPopState = false } = options;
+  const { replaceHistory = false } = options;
 
   if (serviceMenu.hidden) {
     return;
@@ -145,7 +166,15 @@ function closeServiceMenu(options = {}) {
 
   if (state.serviceMenuHistoryOpen && isMobileViewport() && history.state && history.state.ui === "service-menu") {
     state.serviceMenuHistoryOpen = false;
-    history.back();
+    if (replaceHistory) {
+      try {
+        history.replaceState(null, "", window.location.href);
+      } catch (error) {
+        // Safari can reject History API calls in some restricted contexts.
+      }
+    } else {
+      history.back();
+    }
   }
 }
 
@@ -161,29 +190,30 @@ function renderBlankState() {
   serviceSummary.innerHTML = "";
 }
 
-async function selectService(serviceId) {
+function selectService(serviceId) {
   if (!serviceId) {
     renderBlankState();
-    return;
+    return Promise.resolve();
   }
 
   const serviceEntry = state.manifest.servicios.find((service) => service.id === serviceId);
-  const serviceData = await loadJson(serviceEntry.config);
-  state.selectedService = serviceData;
+  return loadJson(serviceEntry.config).then((serviceData) => {
+    state.selectedService = serviceData;
 
-  const firstActivity = serviceData.actividades
-    .reduce((dates, activity) => dates.concat(activity.fechas), [])
-    .map((date) => new Date(`${date.dia}T12:00:00`))
-    .sort((a, b) => a - b)[0];
+    const firstActivity = serviceData.actividades
+      .reduce((dates, activity) => dates.concat(activity.fechas), [])
+      .map((date) => new Date(`${date.dia}T12:00:00`))
+      .sort((a, b) => a - b)[0];
 
-  if (firstActivity) {
-    state.currentDate = new Date(firstActivity.getFullYear(), firstActivity.getMonth(), 1);
-  }
+    if (firstActivity) {
+      state.currentDate = new Date(firstActivity.getFullYear(), firstActivity.getMonth(), 1);
+    }
 
-  emptyState.hidden = true;
-  calendarArea.hidden = false;
-  renderCalendar();
-  scrollToCalendarOnMobile();
+    emptyState.hidden = true;
+    calendarArea.hidden = false;
+    renderCalendar();
+    scrollToCalendarOnMobile();
+  });
 }
 
 function scrollToCalendarOnMobile() {
