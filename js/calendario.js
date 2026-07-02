@@ -86,6 +86,7 @@ function createServiceOption(service) {
 function chooseService(serviceId, serviceName) {
   state.selectedServiceId = serviceId;
   serviceTriggerText.textContent = serviceName;
+  serviceTrigger.blur();
   closeServiceMenu();
   updateServiceOptions();
 
@@ -168,10 +169,14 @@ function scrollToCalendarOnMobile() {
     return;
   }
 
+  const targetTop = Math.max(0, monthControls.getBoundingClientRect().top + window.scrollY - 12);
+
   window.requestAnimationFrame(() => {
-    monthControls.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+    window.requestAnimationFrame(() => {
+      window.scrollTo({
+        top: targetTop,
+        behavior: "smooth"
+      });
     });
   });
 }
