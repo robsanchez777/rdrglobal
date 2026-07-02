@@ -3,7 +3,8 @@ const state = {
   selectedService: null,
   selectedServiceId: "",
   currentDate: new Date(),
-  scrollY: 0
+  scrollY: 0,
+  serviceMenuHistoryOpen: false
 };
 
 const servicePicker = document.getElementById("servicePicker");
@@ -115,8 +116,9 @@ function toggleServiceMenu() {
 }
 
 function openServiceMenu() {
-  if (isMobileViewport()) {
+  if (isMobileViewport() && !state.serviceMenuHistoryOpen) {
     history.pushState({ ui: "service-menu" }, "", window.location.href);
+    state.serviceMenuHistoryOpen = true;
   }
 
   serviceMenu.hidden = false;
@@ -136,7 +138,13 @@ function closeServiceMenu(options = {}) {
   servicePicker.classList.remove("is-open");
   serviceTrigger.setAttribute("aria-expanded", "false");
 
-  if (!fromPopState && isMobileViewport() && history.state && history.state.ui === "service-menu") {
+  if (fromPopState) {
+    state.serviceMenuHistoryOpen = false;
+    return;
+  }
+
+  if (state.serviceMenuHistoryOpen && isMobileViewport() && history.state && history.state.ui === "service-menu") {
+    state.serviceMenuHistoryOpen = false;
     history.back();
   }
 }
@@ -164,7 +172,7 @@ async function selectService(serviceId) {
   state.selectedService = serviceData;
 
   const firstActivity = serviceData.actividades
-    .flatMap((activity) => activity.fechas)
+    .reduce((dates, activity) => dates.concat(activity.fechas), [])
     .map((date) => new Date(`${date.dia}T12:00:00`))
     .sort((a, b) => a - b)[0];
 
@@ -214,8 +222,9 @@ window.addEventListener("popstate", () => {
 window.addEventListener("pageshow", () => {
   if (history.state && history.state.ui === "service-menu" && serviceMenu.hidden) {
     history.replaceState(null, "", window.location.href);
-  });
-}
+    state.serviceMenuHistoryOpen = false;
+  }
+});
 
 function renderCalendar() {
   const service = state.selectedService;
@@ -390,7 +399,7 @@ function capitalize(value) {
 }
 
 function toTelValue(phone) {
-  return phone.replaceAll(" ", "");
+  return phone.replace(/\s/g, "");
 }
 
 function toWhatsAppValue(phone) {
