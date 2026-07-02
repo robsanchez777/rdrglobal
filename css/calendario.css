@@ -181,7 +181,7 @@ input {
 }
 
 .month-controls {
-  height: 54px;
+  min-height: 54px;
   display: grid;
   grid-template-columns: 44px minmax(190px, auto) 44px;
   align-items: center;
@@ -199,9 +199,14 @@ input {
 .month-controls button {
   width: 44px;
   height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
   border-radius: 50%;
   font-size: 1.8rem;
-  line-height: 1;
+  line-height: 0;
   transition: border-color .18s ease, background .18s ease, color .18s ease;
 }
 
@@ -397,9 +402,14 @@ input {
   right: 14px;
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
   border-radius: 50%;
   font-size: 1.5rem;
-  line-height: 1;
+  line-height: 0;
 }
 
 .modal-header {
