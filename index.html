@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acceso - Rey de Reyes Global</title>
+  <link rel="stylesheet" href="css/acceso.css">
+</head>
+<body>
+  <main class="access-shell">
+    <section class="access-panel" aria-labelledby="accessTitle">
+      <img class="access-logo" src="assets/logo-rey-de-reyes.webp" alt="Rey de Reyes Global">
+      <p class="access-kicker">Rey de Reyes Global</p>
+      <h1 id="accessTitle">Antes de continuar</h1>
+      <p class="access-copy">Seleccioná una opción para llevarte al lugar correcto.</p>
+
+      <form id="membershipForm" class="membership-form">
+        <fieldset>
+          <legend>¿Pertenecés a la Iglesia Rey de Reyes?</legend>
+
+          <label class="choice-card">
+            <input type="radio" name="membership" value="member">
+            <span class="choice-bullet" aria-hidden="true"></span>
+            <span>
+              <strong>Sí, pertenezco a la iglesia</strong>
+              <small>Quiero ver el calendario de servicios y actividades.</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="membership" value="visitor">
+            <span class="choice-bullet" aria-hidden="true"></span>
+            <span>
+              <strong>No, todavía no pertenezco</strong>
+              <small>Quiero recibir orientación para conocer más.</small>
+            </span>
+          </label>
+        </fieldset>
+
+        <button id="continueButton" class="continue-button" type="submit" disabled>Continuar</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/acceso.js"></script>
+</body>
+</html>
